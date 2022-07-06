@@ -16,3 +16,5 @@ export const Navbar = () => {
   );
 };
 export default Navbar;
+
+// TODO: Style the navbar

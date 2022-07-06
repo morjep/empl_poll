@@ -7,7 +7,6 @@ export const Questions = () => {
   const dispatch = useDispatch();
   const questionStatus = useSelector(getStatusQuestions);
   const allQuestions = useSelector(allQuestionsAsArray);
-  const error = useSelector((state) => state.questions.error);
 
   let content;
 
@@ -25,7 +24,7 @@ export const Questions = () => {
     ));
   }
   if (questionStatus === "failed") {
-    content = <div>{error}</div>;
+    content = <div>Oops - something unexpected happened. Please try again.</div>;
   }
 
   return (
