@@ -1,28 +1,13 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  selectAllQuestions,
-  fetchQuestions,
-  getStatusQuestions,
-  allQuestionsAsArray,
-} from "./questionsSlice";
+import { getStatusQuestions, allQuestionsAsArray } from "./questionsSlice";
 import styles from "./Questions.module.css";
 
 export const Questions = () => {
   const dispatch = useDispatch();
-  const questions = useSelector(selectAllQuestions);
   const questionStatus = useSelector(getStatusQuestions);
   const allQuestions = useSelector(allQuestionsAsArray);
   const error = useSelector((state) => state.questions.error);
-
-  console.log(questionStatus);
-
-  useEffect(() => {
-    console.log("useEffect", questionStatus);
-    if (questionStatus === "idle") {
-      dispatch(fetchQuestions());
-    }
-  }, [questionStatus, dispatch]);
 
   let content;
 

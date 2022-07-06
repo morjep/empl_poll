@@ -33,7 +33,7 @@ export default questionsSlice.reducer;
 
 export const fetchQuestions = createAsyncThunk("questions/fetchQuestions", async () => {
   const response = await _getQuestions();
-  console.log("API response: ", response);
+  console.log("Questions API response: ", response);
   return response;
 });
 
