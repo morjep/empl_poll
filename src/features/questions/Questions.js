@@ -28,6 +28,7 @@ export const Questions = () => {
   const answeredQuestions = allQuestions.filter((question) =>
     answeredQuestionsArray.includes(question.id)
   );
+
   const newQuestions = allQuestions.filter(
     (question) => !answeredQuestionsArray.includes(question.id)
   );
