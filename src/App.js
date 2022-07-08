@@ -3,15 +3,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
 import { Questions } from "./features/questions/Questions";
-import { getStatusUsers, fetchUsers } from "./features/users/usersSlice";
+import { getStatusUsers, fetchUsers, getAuthedUser } from "./features/users/usersSlice";
 import { getStatusQuestions, fetchQuestions } from "./features/questions/questionsSlice";
 
 import { Navbar } from "./features/navbar/Navbar";
+import { Login } from "./features/users/Login";
 
 function App() {
   const dispatch = useDispatch();
   const usersStatus = useSelector(getStatusUsers);
   const questionStatus = useSelector(getStatusQuestions);
+  const authedUser = useSelector(getAuthedUser);
 
   useEffect(() => {
     if (usersStatus === "idle") {
@@ -27,15 +29,18 @@ function App() {
 
   // TODO: Add route to the leaderboard
   // TODO: Add route to the new question page
-  // TODO: Add route to the login page (conditionally if no authedUser)
   // TODO: Add route to the questions page with specific question id
 
   return (
     <Fragment>
       <div className="App">
-        <Navbar />
+        {authedUser && <Navbar />}
         <Routes>
-          <Route path="/" exact element={<Questions />} />
+          {authedUser ? (
+            <Route path="/" exact element={<Questions />} />
+          ) : (
+            <Route path="/" element={<Login />} />
+          )}
         </Routes>
       </div>
     </Fragment>

@@ -3,7 +3,7 @@ import { _getUsers } from "../../utils/_DATA";
 
 const initialState = {
   users: {},
-  authedUser: "sarahedo",
+  authedUser: null,
   status: "idle",
   error: null,
 };
@@ -14,6 +14,17 @@ const usersSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.authedUser = null;
+    },
+    login: (state, action) => {
+      const { name, pwd } = action.payload;
+      const user = state.users[name];
+      if (user && user.password === pwd) {
+        state.authedUser = user.id;
+      }
+      if (!user) {
+        state.error = "User not found";
+      }
+      // state.authedUser = "sarahedo";
     },
   },
   extraReducers(builder) {
@@ -34,7 +45,7 @@ const usersSlice = createSlice({
   },
 });
 
-export const { logout } = usersSlice.actions;
+export const { login, logout } = usersSlice.actions;
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await _getUsers();
@@ -57,5 +68,7 @@ export const getUserName = (state) => {
   }
   return { userName: "", avatarURL: "" };
 };
+
+export const getUserError = (state) => state.users.error;
 
 export default usersSlice.reducer;
