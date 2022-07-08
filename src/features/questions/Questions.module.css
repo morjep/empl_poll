@@ -2,14 +2,36 @@
 .card {
   background-color: #fff;
   border-radius: 2px;
+  text-align: center;
+
   /* Add shadows to create the "card" effect */
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
   width: 500px;
   transition: 0.3s;
-  margin-bottom: 20px;
-  padding: 20px;
+  margin:20px auto;
+  padding: 25px;
 }
 /* On mouse-over, add a deeper shadow */
 .card:hover {
   box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+h2 {
+  margin: 10px 0;
+  text-align: center;
+}
+
+.cardGroup {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+  background-color: #fff;
+  border-radius: 2px;
+
+  /* Add shadows to create the "card" effect */
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
+  width: auto;
+  transition: 0.3s;
+  margin: 30px;
+  padding: 20px;
 }

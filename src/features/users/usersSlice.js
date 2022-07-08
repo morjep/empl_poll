@@ -57,6 +57,12 @@ export const getStatusUsers = (state) => state.users.status;
 
 export const getAuthedUser = (state) => state.users.authedUser;
 
+export const getAnsweredQuestions = (state) => {
+  const authedUser = getAuthedUser(state);
+  const authedUserObject = state.users.users[authedUser];
+  return Object.keys(authedUserObject.answers);
+};
+
 export const getUserName = (state) => {
   const authedUser = state.users.authedUser;
   const users = state.users.users;
