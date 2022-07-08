@@ -11,7 +11,11 @@ const initialState = {
 const usersSlice = createSlice({
   name: "users",
   initialState,
-  reducers: {},
+  reducers: {
+    logout: (state) => {
+      state.authedUser = null;
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchUsers.pending, (state, action) => {
@@ -30,7 +34,7 @@ const usersSlice = createSlice({
   },
 });
 
-export default usersSlice.reducer;
+export const { logout } = usersSlice.actions;
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await _getUsers();
@@ -39,3 +43,19 @@ export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
 });
 
 export const getStatusUsers = (state) => state.users.status;
+
+export const getAuthedUser = (state) => state.users.authedUser;
+
+export const getUserName = (state) => {
+  const authedUser = state.users.authedUser;
+  const users = state.users.users;
+  const user = users[authedUser];
+  if (user) {
+    const userName = user.name;
+    const avatarURL = user.avatarURL;
+    return { userName, avatarURL };
+  }
+  return { userName: "", avatarURL: "" };
+};
+
+export default usersSlice.reducer;

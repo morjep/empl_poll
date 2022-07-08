@@ -1,0 +1,50 @@
+/* TODO: Style navigation bar */
+
+:root {
+    --margin-navbar: 10px;
+    --margin-link: 10px;
+}
+.nav {
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    background-color: #ddd;
+    transition: top 500ms ease-in-out;
+}
+
+.navleft {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: left;
+    margin: var(--margin-navbar);
+}
+
+.navright {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: right;
+    margin: var(--margin-navbar);
+}
+
+.link {
+    font-weight: bolder;
+    margin: var(--margin-link);
+}
+
+.avatar {
+    width: 40px;
+    height: 40px;
+    margin-right: 5px;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 50%;
+    flex-shrink: 0;
+}
+
+.username {
+    margin-top: var(--margin-link);
+    margin-right: 2em;
+    font-weight: bolder;
+}
