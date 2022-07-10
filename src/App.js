@@ -1,13 +1,18 @@
-import { useEffect, Fragment } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
 import { Questions } from "./features/questions/Questions";
+import { NewQuestion } from "./features/questions/NewQuestion";
+import { Leaderboard } from "./features/questions/Leaderboard";
+import { Question } from "./features/questions/Question";
 import { getStatusUsers, fetchUsers, getAuthedUser } from "./features/users/usersSlice";
 import { getStatusQuestions, fetchQuestions } from "./features/questions/questionsSlice";
 
 import { Navbar } from "./features/navbar/Navbar";
 import { Login } from "./features/users/Login";
+
+const NoMatch = () => <div>404</div>;
 
 function App() {
   const dispatch = useDispatch();
@@ -27,24 +32,39 @@ function App() {
     }
   }, [questionStatus, dispatch]);
 
-  // TODO: Add route to the leaderboard
-  // TODO: Add route to the new question page
-  // TODO: Add route to the questions page with specific question id
-
   return (
-    <Fragment>
-      <div className="App">
-        {authedUser && <Navbar />}
+    // <Fragment>
+    <div className="App">
+      {authedUser && <Navbar />}
+      {authedUser === null ? (
+        <Login />
+      ) : (
         <Routes>
-          {authedUser ? (
-            <Route path="/" exact element={<Questions />} />
-          ) : (
-            <Route path="/" element={<Login />} />
-          )}
+          <Route exact path="/" element={<Questions />} />
+          <Route path="/add" element={<NewQuestion />} />
+          <Route path="/leaderboard" element={<Leaderboard />} />
+          <Route path="/question/:id" element={<Question />} />
+          <Route path="*" element={<NoMatch />} />
         </Routes>
-      </div>
-    </Fragment>
+      )}
+    </div>
+    // </Fragment>
   );
 }
 
 export default App;
+
+// {authedUser && <Navbar />}
+//         <Routes>
+//           <Route exact path="/" element={authedUser ? <Questions /> : <Login />} />
+//           <Route path="/add" element={authedUser ? <NewQuestion /> : <Navigate replace to="/" />} />
+//           <Route
+//             path="/leaderboard"
+//             element={authedUser ? <Leaderboard /> : <Navigate replace to="/" />}
+//           />
+//           <Route
+//             exact
+//             path="/question/:id"
+//             element={authedUser ? <Poll /> : <Navigate replace to="/" />}
+//           />
+//         </Routes>
