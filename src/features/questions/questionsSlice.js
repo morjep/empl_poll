@@ -10,7 +10,18 @@ const initialState = {
 const questionsSlice = createSlice({
   name: "questions",
   initialState,
-  reducers: {},
+  reducers: {
+    // TODO: Must persist on 'backend'
+    questionVote: (state, action) => {
+      const { questionId, author, option } = action.payload;
+      if (option === "optionOne") {
+        state.questions[questionId].optionOne.votes.push(author);
+      }
+      if (option === "optionTwo") {
+        state.questions[questionId].optionTwo.votes.push(author);
+      }
+    },
+  },
   extraReducers(builder) {
     builder
       .addCase(fetchQuestions.pending, (state, action) => {
@@ -28,6 +39,8 @@ const questionsSlice = createSlice({
       });
   },
 });
+
+export const { questionVote } = questionsSlice.actions;
 
 export default questionsSlice.reducer;
 

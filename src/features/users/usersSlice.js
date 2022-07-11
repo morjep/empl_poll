@@ -24,7 +24,10 @@ const usersSlice = createSlice({
       if (!user) {
         state.error = "User not found";
       }
-      // state.authedUser = "sarahedo";
+    },
+    userVote: (state, action) => {
+      const { userId, questionId, option } = action.payload;
+      state.users[userId].answers[questionId] = option;
     },
   },
   extraReducers(builder) {
@@ -45,7 +48,7 @@ const usersSlice = createSlice({
   },
 });
 
-export const { login, logout } = usersSlice.actions;
+export const { login, logout, userVote } = usersSlice.actions;
 
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await _getUsers();
@@ -57,7 +60,13 @@ export const getStatusUsers = (state) => state.users.status;
 
 export const getAuthedUser = (state) => state.users.authedUser;
 
-export const getAnsweredQuestions = (state) => {
+export const getAnswers = (state) => {
+  const authedUser = getAuthedUser(state);
+  const authedUserObject = state.users.users[authedUser];
+  return authedUserObject.answers;
+};
+
+export const getAnsweredQuestionsAsArray = (state) => {
   const authedUser = getAuthedUser(state);
   const authedUserObject = state.users.users[authedUser];
   return Object.keys(authedUserObject.answers);

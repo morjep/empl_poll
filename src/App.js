@@ -53,18 +53,3 @@ function App() {
 }
 
 export default App;
-
-// {authedUser && <Navbar />}
-//         <Routes>
-//           <Route exact path="/" element={authedUser ? <Questions /> : <Login />} />
-//           <Route path="/add" element={authedUser ? <NewQuestion /> : <Navigate replace to="/" />} />
-//           <Route
-//             path="/leaderboard"
-//             element={authedUser ? <Leaderboard /> : <Navigate replace to="/" />}
-//           />
-//           <Route
-//             exact
-//             path="/question/:id"
-//             element={authedUser ? <Poll /> : <Navigate replace to="/" />}
-//           />
-//         </Routes>

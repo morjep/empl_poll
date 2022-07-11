@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { getStatusQuestions, allQuestionsAsArray } from "./questionsSlice";
-import { getAnsweredQuestions } from "../users/usersSlice";
+import { getAnsweredQuestionsAsArray } from "../users/usersSlice";
 import { Link } from "react-router-dom";
 
 import styles from "./Questions.module.css";
@@ -13,8 +13,8 @@ export function formatDate(timestamp) {
 
 export const Questions = () => {
   const questionStatus = useSelector(getStatusQuestions);
-  const allQuestions = useSelector(allQuestionsAsArray);
-  const answeredQuestionsArray = useSelector(getAnsweredQuestions);
+  const allQuestionsArray = useSelector(allQuestionsAsArray);
+  const answeredQuestionsArray = useSelector(getAnsweredQuestionsAsArray);
 
   if (questionStatus === "loading") {
     return <div>Loading</div>;
@@ -24,11 +24,11 @@ export const Questions = () => {
     return <div>Oops - something unexpected happened. Please try again.</div>;
   }
 
-  const answeredQuestions = allQuestions.filter((question) =>
+  const answeredQuestions = allQuestionsArray.filter((question) =>
     answeredQuestionsArray.includes(question.id)
   );
 
-  const newQuestions = allQuestions.filter(
+  const newQuestions = allQuestionsArray.filter(
     (question) => !answeredQuestionsArray.includes(question.id)
   );
 
