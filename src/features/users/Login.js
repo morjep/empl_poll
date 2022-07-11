@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "./usersSlice";
+import styles from "./Login.module.css";
 
 export const Login = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,9 @@ export const Login = () => {
   };
 
   return (
-    <div className="login">
+    <div className={styles.login}>
       <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className={styles.form}>
         <label>Username:</label>
         <input type="text" name="username" />
         <label>Password:</label>

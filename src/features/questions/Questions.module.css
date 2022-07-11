@@ -1,37 +1,44 @@
 /* render article as card */
-.card {
-  background-color: #fff;
-  border-radius: 2px;
-  text-align: center;
-
-  /* Add shadows to create the "card" effect */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-  width: 500px;
-  transition: 0.3s;
-  margin:20px auto;
-  padding: 25px;
-}
-/* On mouse-over, add a deeper shadow */
-.card:hover {
-  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
-}
-
-h2 {
-  margin: 10px 0;
-  text-align: center;
+.questions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: 25px;
+  overflow: auto;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
+  width: auto;
 }
 
 .cardGroup {
   display: flex;
   flex-wrap: wrap;
-  justify-content: left;
-  background-color: #fff;
+  justify-content: space-between;
+  border-top:solid 1px  #ddd ;
   border-radius: 2px;
-
-  /* Add shadows to create the "card" effect */
-  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.4);
   width: auto;
   transition: 0.3s;
-  margin: 30px;
-  padding: 20px;
+  margin: 10px;
+}
+
+.card {
+  background-color: rgb(255, 255, 255);
+  border-radius: 2px;
+  text-align: center;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.25);
+  width: 300px;
+  transition: 0.3s;
+  margin:20px auto;
+  padding: 25px;
+}
+
+/* On mouse-over, add a deeper shadow */
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.5);
+}
+
+h2 {
+  margin: 10px 0;
+  text-align: center;
 }

@@ -10,7 +10,7 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    background-color: #ddd;
+    background-color: rgb(251, 240, 169);
     transition: top 500ms ease-in-out;
 }
 

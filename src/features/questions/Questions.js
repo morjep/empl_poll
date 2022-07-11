@@ -34,29 +34,33 @@ export const Questions = () => {
 
   return (
     <div>
-      <h2> New questions </h2>
-      <div className={styles.cardGroup}>
-        {newQuestions.map((question) => (
-          <article className={styles.card} key={question.id}>
-            <h3>{question.author}</h3>
-            <p>{formatDate(question.timestamp)}</p>
-            <button>
-              <Link to={`/question/${question.id}`}>Answer</Link>
-            </button>
-          </article>
-        ))}
+      <div className={styles.questions}>
+        <h2> New questions </h2>
+        <div className={styles.cardGroup}>
+          {newQuestions.map((question) => (
+            <article className={styles.card} key={question.id}>
+              <h3>{question.author}</h3>
+              <p>{formatDate(question.timestamp)}</p>
+              <button>
+                <Link to={`/question/${question.id}`}>Answer</Link>
+              </button>
+            </article>
+          ))}
+        </div>
       </div>
-      <h2> Answered questions </h2>
-      <div className={styles.cardGroup}>
-        {answeredQuestions.map((question) => (
-          <article className={styles.card} key={question.id}>
-            <h3>{question.author}</h3>
-            <p>{formatDate(question.timestamp)}</p>
-            <button>
-              <Link to={`/question/${question.id}`}>Show</Link>
-            </button>
-          </article>
-        ))}
+      <div className={styles.questions}>
+        <h2> Answered questions </h2>
+        <div className={styles.cardGroup}>
+          {answeredQuestions.map((question) => (
+            <article className={styles.card} key={question.id}>
+              <h3>{question.author}</h3>
+              <p>{formatDate(question.timestamp)}</p>
+              <button>
+                <Link to={`/question/${question.id}`}>Show</Link>
+              </button>
+            </article>
+          ))}
+        </div>
       </div>
     </div>
   );
