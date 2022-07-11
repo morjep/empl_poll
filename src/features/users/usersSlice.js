@@ -25,6 +25,7 @@ const usersSlice = createSlice({
         state.error = "User not found";
       }
     },
+    //TODO: Must persist on backend
     userVote: (state, action) => {
       const { userId, questionId, option } = action.payload;
       state.users[userId].answers[questionId] = option;
