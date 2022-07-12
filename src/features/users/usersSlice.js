@@ -25,6 +25,10 @@ const usersSlice = createSlice({
         state.error = "User not found";
       }
     },
+    updateUserNewQuestion: (state, action) => {
+      const { authedUser, qid } = action.payload;
+      state.users[authedUser].questions.push(qid);
+    },
   },
   extraReducers(builder) {
     builder
@@ -50,7 +54,7 @@ const usersSlice = createSlice({
   },
 });
 
-export const { login, logout } = usersSlice.actions;
+export const { login, logout, updateUserNewQuestion } = usersSlice.actions;
 export default usersSlice.reducer;
 
 /* Async below here */

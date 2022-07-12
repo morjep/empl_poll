@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const NewQuestion = () => {
   const dispatch = useDispatch();
   const authedUser = useSelector(getAuthedUser);
+
   let navigate = useNavigate();
 
   const handleSubmit = (e) => {
@@ -21,6 +22,7 @@ export const NewQuestion = () => {
       author: author,
     };
     dispatch(saveNewQuestion(question));
+
     e.target.reset();
     navigate("/");
   };

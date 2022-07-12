@@ -37,7 +37,6 @@ const questionsSlice = createSlice({
         state.error = action.error.message;
       })
       .addCase(saveNewQuestion.fulfilled, (state, action) => {
-        console.log(action);
         if (action.payload) {
           const question = action.payload;
           state.questions[question.id] = question;
