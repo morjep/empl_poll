@@ -3,7 +3,7 @@ import { getStatusQuestions, allQuestionsAsArray } from "./questionsSlice";
 import { getAnsweredQuestionsAsArray } from "../users/usersSlice";
 import { Link } from "react-router-dom";
 
-import styles from "./Questions.module.css";
+import styles from "./questions.module.css";
 
 export function formatDate(timestamp) {
   const d = new Date(timestamp);
@@ -38,13 +38,12 @@ export const Questions = () => {
         <h2> New questions </h2>
         <div className={styles.cardGroup}>
           {newQuestions.map((question) => (
-            <article className={styles.card} key={question.id}>
-              <h3>{question.author}</h3>
-              <p>{formatDate(question.timestamp)}</p>
-              <button>
-                <Link to={`/question/${question.id}`}>Answer</Link>
-              </button>
-            </article>
+            <Link to={`/question/${question.id}`} className={styles.card}>
+              <article key={question.id}>
+                <h3>{question.author}</h3>
+                <p>{formatDate(question.timestamp)}</p>
+              </article>
+            </Link>
           ))}
         </div>
       </div>
@@ -52,13 +51,12 @@ export const Questions = () => {
         <h2> Answered questions </h2>
         <div className={styles.cardGroup}>
           {answeredQuestions.map((question) => (
-            <article className={styles.card} key={question.id}>
-              <h3>{question.author}</h3>
-              <p>{formatDate(question.timestamp)}</p>
-              <button>
-                <Link to={`/question/${question.id}`}>Show</Link>
-              </button>
-            </article>
+            <Link to={`/question/${question.id}`} className={styles.card}>
+              <article key={question.id}>
+                <h3>{question.author}</h3>
+                <p>{formatDate(question.timestamp)}</p>
+              </article>
+            </Link>
           ))}
         </div>
       </div>

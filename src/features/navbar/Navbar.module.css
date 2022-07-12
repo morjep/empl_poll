@@ -10,8 +10,9 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
-    background-color: rgb(251, 240, 169);
+    background-color: rgb(50, 50, 50);
     transition: top 500ms ease-in-out;
+    border-bottom: solid 1px #ddd;
 }
 
 .navleft {
@@ -31,6 +32,9 @@
 .link {
     font-weight: bolder;
     margin: var(--margin-link);
+    color: white;
+    text-decoration: none;
+    /* border-bottom: 2px solid white; */
 }
 
 .avatar {
@@ -47,4 +51,5 @@
     margin-top: var(--margin-link);
     margin-right: 2em;
     font-weight: bolder;
+    color: yellowgreen;
 }

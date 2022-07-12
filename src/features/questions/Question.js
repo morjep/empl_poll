@@ -10,7 +10,7 @@ import {
 } from "../users/usersSlice";
 import { Link } from "react-router-dom";
 
-import styles from "./Question.module.css";
+import styles from "./questions.module.css";
 
 export const Question = () => {
   let params = useParams();
@@ -28,9 +28,8 @@ export const Question = () => {
   const answeredQuestions = useSelector(getAnsweredQuestionsAsArray);
   const answered = answeredQuestions.includes(questionId);
   const answers = useSelector(getAnswers);
-
-  const answerText =
-    answers[questionId] === "optionOne" ? question.optionOne.text : question.optionTwo.text;
+  const answer = answers[questionId];
+  const answerText = answer === "optionOne" ? question.optionOne.text : question.optionTwo.text;
 
   if (!question) {
     return (
@@ -41,8 +40,8 @@ export const Question = () => {
   }
 
   const handleVote = (option) => {
-    dispatch(questionVote({ questionId: questionId, author: authedUser, option }));
-    dispatch(userVote({ userId: authedUser, questionId: questionId, option }));
+    !answered && dispatch(questionVote({ questionId: questionId, author: authedUser, option }));
+    !answered && dispatch(userVote({ userId: authedUser, questionId: questionId, option }));
   };
 
   const handleVoteOne = () => {
@@ -53,40 +52,63 @@ export const Question = () => {
     handleVote("optionTwo");
   };
 
-  return (
-    <section className={styles.question}>
-      <h1>Poll by {question.author}</h1>
-      <div
-        className={styles.avatar}
-        style={{
-          backgroundImage: `url(${avatarURL})`,
-        }}
-      ></div>
-      <h2> Would you rather</h2>
-      <div className={styles.options}>
-        <div className={styles.option}>
-          <div> Option #1: {question.optionOne.text}</div>
-          {!answered && (
-            <button type="button" onClick={handleVoteOne}>
-              <Link to={"/"}>Option #1</Link>
-            </button>
-          )}
-        </div>
-        <div className={styles.option}>
-          <div> Option #2: {question.optionTwo.text}</div>
-          {!answered && (
-            <button type="button" onClick={handleVoteTwo}>
-              <Link to={"/"}>Option #2</Link>
-            </button>
-          )}
-        </div>
-      </div>
+  if (answered) {
+    return (
+      <section className={styles.question}>
+        <h1>Poll by {question.author}</h1>
+        <div
+          className={styles.avatar}
+          style={{
+            backgroundImage: `url(${avatarURL})`,
+          }}
+        ></div>
+        <h2> Would you rather</h2>
+        <div className={styles.options}>
+          <div className={answer === "optionOne" ? styles.cardAnswered : styles.card}>
+            <h3> Option 1 </h3>
+            <h2> {question.optionOne.text}</h2>
+          </div>
 
-      <div className={styles.answer}>
-        {answered && <h2>You have already answered this question!</h2>}
-        {answered && <h3>Your choice: {answerText}</h3>}
-      </div>
-    </section>
-  );
+          <div className={answer === "optionTwo" ? styles.cardAnswered : styles.card}>
+            <h3> Option 2 </h3>
+            <h2>{question.optionTwo.text}</h2>
+          </div>
+        </div>
+
+        <div className={styles.answer}>
+          {answered && <h2>You have already answered this question!</h2>}
+          {answered && <h2>Your choice was: "{answerText}"</h2>}
+        </div>
+      </section>
+    );
+  }
+
+  if (!answered) {
+    return (
+      <section className={styles.question}>
+        <h1>Poll by {question.author}</h1>
+        <div
+          className={styles.avatar}
+          style={{
+            backgroundImage: `url(${avatarURL})`,
+          }}
+        ></div>
+        <h2> Would you rather</h2>
+        <div className={styles.options}>
+          <Link to={"/"} className={styles.card} onClick={handleVoteOne}>
+            <div>
+              <div> Option #1: {question.optionOne.text}</div>
+            </div>
+          </Link>
+
+          <Link to={"/"} className={styles.card} onClick={handleVoteTwo}>
+            <div>
+              <div> Option #2: {question.optionTwo.text}</div>
+            </div>
+          </Link>
+        </div>
+      </section>
+    );
+  }
 };
 export default Question;
