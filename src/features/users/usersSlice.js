@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { _getUsers } from "../../utils/_DATA";
+import { _getUsers, _saveQuestionAnswer } from "../../utils/_DATA";
 
 const initialState = {
   users: {},
@@ -45,18 +45,40 @@ const usersSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(saveUserAnswer.fulfilled, (state, action) => {
+        if (action) {
+          const { authedUser, qid, answer } = action.payload;
+          state.users[authedUser].answers[qid] = answer;
+        }
       });
   },
 });
 
 export const { login, logout, userVote } = usersSlice.actions;
+export default usersSlice.reducer;
 
+/* Async below here */
+
+// Thunk for fetching all user
 export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
   const response = await _getUsers();
-  console.log("Users API response: ", response);
+  console.log("fetchUsers API response: ", response);
   return response;
 });
 
+// Thunk for saving user answer
+export const saveUserAnswer = createAsyncThunk("users/saveUserAnswer", async (payload) => {
+  const { authedUser, qid, answer } = payload;
+  const response = await _saveQuestionAnswer({ authedUser, qid, answer });
+  console.log("saveUserAnswer API response: ", response);
+  if (response) {
+    return payload;
+  }
+  return null;
+});
+
+/*  Selectors below here */
 export const getStatusUsers = (state) => state.users.status;
 
 export const getAuthedUser = (state) => state.users.authedUser;
@@ -86,5 +108,3 @@ export const getUserName = (state) => {
 };
 
 export const getUserError = (state) => state.users.error;
-
-export default usersSlice.reducer;

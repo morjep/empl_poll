@@ -7,8 +7,8 @@ let users = {
     answers: {
       "8xf0y6ziyjabvozdd253nd": "optionOne",
       "6ni6ok3ym7mf1p33lnez": "optionOne",
-      "am8ehyc8byjqgar0jgpub9": "optionTwo",
-      "loxhs1bqm25b708cmbf3g": "optionTwo",
+      am8ehyc8byjqgar0jgpub9: "optionTwo",
+      loxhs1bqm25b708cmbf3g: "optionTwo",
     },
     questions: ["8xf0y6ziyjabvozdd253nd", "am8ehyc8byjqgar0jgpub9"],
   },
@@ -16,10 +16,10 @@ let users = {
     id: "tylermcginnis",
     password: "abc321",
     name: "Tyler McGinnis",
-    avatarURL: "https://gravatar.com/avatar/7f0dd4c8267693ceddedf96902fb3c79?s=400&d=robohash&r=x",
+    avatarURL: "https://gravatar.com/avatar/b2749a106f3df81d047e31c2b63b20e9?s=400&d=robohash&r=x",
     answers: {
-      "vthrdm985a262al8qx3do": "optionOne",
-      "xj352vofupe1dqz9emx13r": "optionTwo",
+      vthrdm985a262al8qx3do: "optionOne",
+      xj352vofupe1dqz9emx13r: "optionTwo",
     },
     questions: ["loxhs1bqm25b708cmbf3g", "vthrdm985a262al8qx3do"],
   },
@@ -29,8 +29,8 @@ let users = {
     name: "Mike Tsamis",
     avatarURL: "https://gravatar.com/avatar/c031b2ec39bbdbd43eb38c7db4c895a9?s=400&d=robohash&r=x",
     answers: {
-      "xj352vofupe1dqz9emx13r": "optionOne",
-      "vthrdm985a262al8qx3do": "optionTwo",
+      xj352vofupe1dqz9emx13r: "optionOne",
+      vthrdm985a262al8qx3do: "optionTwo",
       "6ni6ok3ym7mf1p33lnez": "optionOne",
     },
     questions: ["6ni6ok3ym7mf1p33lnez", "xj352vofupe1dqz9emx13r"],
@@ -183,7 +183,6 @@ export function _saveQuestionAnswer({ authedUser, qid, answer }) {
     if (!authedUser || !qid || !answer) {
       reject("Please provide authedUser, qid, and answer");
     }
-
     setTimeout(() => {
       users = {
         ...users,

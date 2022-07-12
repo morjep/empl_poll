@@ -16,7 +16,7 @@ let users = {
     id: "tylermcginnis",
     password: "abc321",
     name: "Tyler McGinnis",
-    avatarURL: "https://gravatar.com/avatar/7f0dd4c8267693ceddedf96902fb3c79?s=400&d=robohash&r=x",
+    avatarURL: null,
     answers: {
       "vthrdm985a262al8qx3do": "optionOne",
       "xj352vofupe1dqz9emx13r": "optionTwo",

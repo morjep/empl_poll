@@ -4,6 +4,7 @@ import { allQuestionsAsArray, questionVote } from "./questionsSlice";
 import {
   getAuthedUser,
   userVote,
+  saveUserAnswer,
   getAnsweredQuestionsAsArray,
   getAnswers,
   getUserName,
@@ -14,7 +15,7 @@ import styles from "./questions.module.css";
 
 export const Question = () => {
   let params = useParams();
-  const questionId = params.id;
+  const qid = params.id;
   const allQuestions = useSelector(allQuestionsAsArray);
   const authedUser = useSelector(getAuthedUser);
 
@@ -24,11 +25,11 @@ export const Question = () => {
 
   const dispatch = useDispatch();
 
-  const question = allQuestions.find((question) => question.id === questionId);
+  const question = allQuestions.find((question) => question.id === qid);
   const answeredQuestions = useSelector(getAnsweredQuestionsAsArray);
-  const answered = answeredQuestions.includes(questionId);
+  const answered = answeredQuestions.includes(qid);
   const answers = useSelector(getAnswers);
-  const answer = answers[questionId];
+  const answer = answers[qid];
   const answerText = answer === "optionOne" ? question.optionOne.text : question.optionTwo.text;
 
   if (!question) {
@@ -39,9 +40,9 @@ export const Question = () => {
     );
   }
 
-  const handleVote = (option) => {
-    !answered && dispatch(questionVote({ questionId: questionId, author: authedUser, option }));
-    !answered && dispatch(userVote({ userId: authedUser, questionId: questionId, option }));
+  const handleVote = (answer) => {
+    !answered && dispatch(questionVote({ questionId: qid, author: authedUser, option: answer }));
+    !answered && dispatch(saveUserAnswer({ authedUser, qid, answer }));
   };
 
   const handleVoteOne = () => {

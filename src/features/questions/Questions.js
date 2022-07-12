@@ -38,8 +38,8 @@ export const Questions = () => {
         <h2> New questions </h2>
         <div className={styles.cardGroup}>
           {newQuestions.map((question) => (
-            <Link to={`/question/${question.id}`} className={styles.card}>
-              <article key={question.id}>
+            <Link to={`/question/${question.id}`} className={styles.card} key={question.id}>
+              <article>
                 <h3>{question.author}</h3>
                 <p>{formatDate(question.timestamp)}</p>
               </article>
@@ -51,8 +51,8 @@ export const Questions = () => {
         <h2> Answered questions </h2>
         <div className={styles.cardGroup}>
           {answeredQuestions.map((question) => (
-            <Link to={`/question/${question.id}`} className={styles.card}>
-              <article key={question.id}>
+            <Link to={`/question/${question.id}`} className={styles.card} key={question.id}>
+              <article>
                 <h3>{question.author}</h3>
                 <p>{formatDate(question.timestamp)}</p>
               </article>
