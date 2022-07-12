@@ -1,9 +1,8 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { allQuestionsAsArray, questionVote } from "./questionsSlice";
+import { allQuestionsAsArray, updateQuestionVote } from "./questionsSlice";
 import {
   getAuthedUser,
-  userVote,
   saveUserAnswer,
   getAnsweredQuestionsAsArray,
   getAnswers,
@@ -41,7 +40,8 @@ export const Question = () => {
   }
 
   const handleVote = (answer) => {
-    !answered && dispatch(questionVote({ questionId: qid, author: authedUser, option: answer }));
+    !answered && dispatch(updateQuestionVote({ authedUser, qid, answer }));
+    // !answered && dispatch(questionVote({ questionId: qid, author: authedUser, option: answer }));
     !answered && dispatch(saveUserAnswer({ authedUser, qid, answer }));
   };
 

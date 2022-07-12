@@ -25,11 +25,6 @@ const usersSlice = createSlice({
         state.error = "User not found";
       }
     },
-    //TODO: Must persist on backend
-    userVote: (state, action) => {
-      const { userId, questionId, option } = action.payload;
-      state.users[userId].answers[questionId] = option;
-    },
   },
   extraReducers(builder) {
     builder
@@ -55,7 +50,7 @@ const usersSlice = createSlice({
   },
 });
 
-export const { login, logout, userVote } = usersSlice.actions;
+export const { login, logout } = usersSlice.actions;
 export default usersSlice.reducer;
 
 /* Async below here */

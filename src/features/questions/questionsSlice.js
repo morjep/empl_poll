@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { _getQuestions } from "../../utils/_DATA";
+import { _getQuestions, _saveQuestion } from "../../utils/_DATA";
 
 const initialState = {
   questions: {},
@@ -11,14 +11,13 @@ const questionsSlice = createSlice({
   name: "questions",
   initialState,
   reducers: {
-    // TODO: Must persist on 'backend'
-    questionVote: (state, action) => {
-      const { questionId, author, option } = action.payload;
-      if (option === "optionOne") {
-        state.questions[questionId].optionOne.votes.push(author);
+    updateQuestionVote: (state, action) => {
+      const { authedUser, qid, answer } = action.payload;
+      if (answer === "optionOne") {
+        state.questions[qid].optionOne.votes.push(authedUser);
       }
-      if (option === "optionTwo") {
-        state.questions[questionId].optionTwo.votes.push(author);
+      if (answer === "optionTwo") {
+        state.questions[qid].optionTwo.votes.push(authedUser);
       }
     },
   },
@@ -36,17 +35,30 @@ const questionsSlice = createSlice({
       .addCase(fetchQuestions.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.error.message;
+      })
+      .addCase(saveNewQuestion.fulfilled, (state, action) => {
+        console.log(action);
+        if (action.payload) {
+          const question = action.payload;
+          state.questions[question.id] = question;
+        }
       });
   },
 });
 
-export const { questionVote } = questionsSlice.actions;
+export const { questionVote, updateQuestionVote } = questionsSlice.actions;
 
 export default questionsSlice.reducer;
 
 export const fetchQuestions = createAsyncThunk("questions/fetchQuestions", async () => {
   const response = await _getQuestions();
-  console.log("Questions API response: ", response);
+  console.log("fetchQuestions API response: ", response);
+  return response;
+});
+
+export const saveNewQuestion = createAsyncThunk("questions/saveNewQuestion", async (question) => {
+  const response = await _saveQuestion(question);
+  console.log("saveNewQuestion API response: ", response);
   return response;
 });
 
