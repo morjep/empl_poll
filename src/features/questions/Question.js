@@ -64,12 +64,12 @@ export const Question = () => {
         ></div>
         <h2> Would you rather</h2>
         <div className={styles.options}>
-          <div className={answer === "optionOne" ? styles.cardAnswered : styles.card}>
+          <div className={answer === "optionOne" ? styles.cardChoice : styles.cardNotChoice}>
             <h3> Option 1 </h3>
             <h2> {question.optionOne.text}</h2>
           </div>
 
-          <div className={answer === "optionTwo" ? styles.cardAnswered : styles.card}>
+          <div className={answer === "optionTwo" ? styles.cardChoice : styles.cardNotChoice}>
             <h3> Option 2 </h3>
             <h2>{question.optionTwo.text}</h2>
           </div>
@@ -97,13 +97,15 @@ export const Question = () => {
         <div className={styles.options}>
           <Link to={"/"} className={styles.card} onClick={handleVoteOne}>
             <div>
-              <div> Option #1: {question.optionOne.text}</div>
+              <h3> Option 1 </h3>
+              <h2> {question.optionOne.text}</h2>
             </div>
           </Link>
 
           <Link to={"/"} className={styles.card} onClick={handleVoteTwo}>
             <div>
-              <div> Option #2: {question.optionTwo.text}</div>
+              <h3> Option 2 </h3>
+              <h2>{question.optionTwo.text}</h2>
             </div>
           </Link>
         </div>
