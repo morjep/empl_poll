@@ -4,9 +4,9 @@ import { getAuthedUser } from "../users/usersSlice";
 import { useNavigate } from "react-router-dom";
 
 export const NewQuestion = () => {
+  const dispatch = useDispatch();
   const authedUser = useSelector(getAuthedUser);
   let navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const handleSubmit = (e) => {
     e.preventDefault();
