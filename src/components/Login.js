@@ -1,5 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "./usersSlice";
+import { login } from "../app/usersSlice";
 import styles from "./login.module.css";
 
 export const Login = () => {

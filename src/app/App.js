@@ -2,15 +2,15 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 
-import { Questions } from "./features/questions/Questions";
-import { NewQuestion } from "./features/questions/NewQuestion";
-import { Leaderboard } from "./features/questions/Leaderboard";
-import { Question } from "./features/questions/Question";
-import { getStatusUsers, fetchUsers, getAuthedUser } from "./features/users/usersSlice";
-import { getStatusQuestions, fetchQuestions } from "./features/questions/questionsSlice";
+import { Home } from "../components/Home";
+import { NewQuestion } from "../components/NewQuestion";
+import { Leaderboard } from "../components/Leaderboard";
+import { Question } from "../components/Question";
+import { getStatusUsers, fetchUsers, getAuthedUser } from "./usersSlice";
+import { getStatusQuestions, fetchQuestions } from "./appSlice";
 
-import { Navbar } from "./features/navbar/Navbar";
-import { Login } from "./features/users/Login";
+import { Navbar } from "../components/Navbar";
+import { Login } from "../components/Login";
 
 const NoMatch = () => <div>404</div>;
 
@@ -40,7 +40,7 @@ function App() {
         <Login />
       ) : (
         <Routes>
-          <Route exact path="/" element={<Questions />} />
+          <Route exact path="/" element={<Home />} />
           <Route path="/add" element={<NewQuestion />} />
           <Route path="/leaderboard" element={<Leaderboard />} />
           <Route path="/question/:id" element={<Question />} />

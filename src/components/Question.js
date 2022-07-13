@@ -1,13 +1,13 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import { allQuestionsAsArray, updateQuestionVote } from "./questionsSlice";
+import { allQuestionsAsArray, updateQuestionVote } from "../app/appSlice";
 import {
   getAuthedUser,
   saveUserAnswer,
   getAnsweredQuestionsAsArray,
   getAnswers,
   getUserName,
-} from "../users/usersSlice";
+} from "../app/usersSlice";
 import { Link } from "react-router-dom";
 
 import styles from "./questions.module.css";

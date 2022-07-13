@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
-import { getStatusQuestions, allQuestionsAsArray } from "./questionsSlice";
-import { getAnsweredQuestionsAsArray } from "../users/usersSlice";
+import { getStatusQuestions, allQuestionsAsArray } from "../app/appSlice";
+import { getAnsweredQuestionsAsArray } from "../app/usersSlice";
 import { Link } from "react-router-dom";
 
 import styles from "./questions.module.css";
@@ -11,7 +11,7 @@ export function formatDate(timestamp) {
   return time.substring(0, 5) + time.slice(-2) + " | " + d.toLocaleDateString();
 }
 
-export const Questions = () => {
+export const Home = () => {
   const questionStatus = useSelector(getStatusQuestions);
   const allQuestionsArray = useSelector(allQuestionsAsArray);
   const answeredQuestionsArray = useSelector(getAnsweredQuestionsAsArray);

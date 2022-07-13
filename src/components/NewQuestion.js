@@ -1,6 +1,6 @@
 import { useSelector, useDispatch } from "react-redux";
-import { saveNewQuestion } from "./questionsSlice";
-import { getAuthedUser } from "../users/usersSlice";
+import { saveNewQuestion } from "../app/appSlice";
+import { getAuthedUser } from "../app/usersSlice";
 import { useNavigate } from "react-router-dom";
 
 export const NewQuestion = () => {

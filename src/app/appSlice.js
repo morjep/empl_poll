@@ -1,14 +1,18 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { _getQuestions, _saveQuestion } from "../../utils/_DATA";
+import { _getQuestions, _saveQuestion } from "../utils/_DATA";
+import { _getUsers, _saveQuestionAnswer } from "../utils/_DATA";
 
 const initialState = {
   questions: {},
-  status: "idle",
+  users: {},
+  authedUser: null,
+  statusUsersAPI: "idle",
+  statusQuestionsAPI: "idle",
   error: null,
 };
 
-const questionsSlice = createSlice({
-  name: "questions",
+const appSlice = createSlice({
+  name: "app",
   initialState,
   reducers: {
     updateQuestionVote: (state, action) => {
@@ -24,16 +28,14 @@ const questionsSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(fetchQuestions.pending, (state, action) => {
-        state.status = "loading";
+        state.statusQuestionsAPI = "loading";
       })
       .addCase(fetchQuestions.fulfilled, (state, action) => {
-        state.status = "succeeded";
-
-        // Add any fetched posts to the array
+        state.statusQuestionsAPI = "succeeded";
         state.questions = action.payload;
       })
       .addCase(fetchQuestions.rejected, (state, action) => {
-        state.status = "failed";
+        state.statusQuestionsAPI = "failed";
         state.error = action.error.message;
       })
       .addCase(saveNewQuestion.fulfilled, (state, action) => {
@@ -45,25 +47,25 @@ const questionsSlice = createSlice({
   },
 });
 
-export const { questionVote, updateQuestionVote } = questionsSlice.actions;
+export const { questionVote, updateQuestionVote } = appSlice.actions;
 
-export default questionsSlice.reducer;
+export default appSlice.reducer;
 
 export const fetchQuestions = createAsyncThunk("questions/fetchQuestions", async () => {
   const response = await _getQuestions();
-  console.log("fetchQuestions API response: ", response);
+  console.log("_getQuestions() API response: ", response);
   return response;
 });
 
 export const saveNewQuestion = createAsyncThunk("questions/saveNewQuestion", async (question) => {
   const response = await _saveQuestion(question);
-  console.log("saveNewQuestion API response: ", response);
+  console.log("_saveQuestion() API response: ", response);
   return response;
 });
 
-export const selectAllQuestions = (state) => state.questions.questions;
+export const selectAllQuestions = (state) => state.app.questions;
 
-export const getStatusQuestions = (state) => state.questions.status;
+export const getStatusQuestions = (state) => state.app.statusQuestionsAPI;
 
 export const allQuestionsAsArray = (state) => {
   const questions = selectAllQuestions(state);
