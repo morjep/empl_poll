@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { getStatusQuestions, allQuestionsAsArray } from "../app/appSlice";
-import { getAnsweredQuestionsAsArray } from "../app/usersSlice";
+import { getAnsweredQuestionsAsArray } from "../app/appSlice";
 import { Link } from "react-router-dom";
 
 import styles from "./questions.module.css";

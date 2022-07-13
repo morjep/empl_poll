@@ -30,6 +30,7 @@ const usersSlice = createSlice({
       state.users[authedUser].questions.push(qid);
     },
   },
+  /* A way to add extra reducers to the slice. */
   extraReducers(builder) {
     builder
       .addCase(fetchUsers.pending, (state, action) => {

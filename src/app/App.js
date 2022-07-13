@@ -6,7 +6,7 @@ import { Home } from "../components/Home";
 import { NewQuestion } from "../components/NewQuestion";
 import { Leaderboard } from "../components/Leaderboard";
 import { Question } from "../components/Question";
-import { getStatusUsers, fetchUsers, getAuthedUser } from "./usersSlice";
+import { getStatusUsers, fetchUsers, getAuthedUser } from "./appSlice";
 import { getStatusQuestions, fetchQuestions } from "./appSlice";
 
 import { Navbar } from "../components/Navbar";

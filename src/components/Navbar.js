@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import styles from "./Navbar.module.css";
-import { getUserName, logout } from "../app/usersSlice";
+import { getUserName, logout } from "../app/appSlice";
 import { useSelector, useDispatch } from "react-redux";
 
 // The navbar should contain a link to the Home page, a link to the

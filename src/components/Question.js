@@ -7,7 +7,7 @@ import {
   getAnsweredQuestionsAsArray,
   getAnswers,
   getUserName,
-} from "../app/usersSlice";
+} from "../app/appSlice";
 import { Link } from "react-router-dom";
 
 import styles from "./questions.module.css";
