@@ -6,7 +6,7 @@ import {
   saveUserAnswer,
   getAnsweredQuestionsAsArray,
   getAnswers,
-  getUserName,
+  userInfo,
 } from "../app/appSlice";
 import { Link } from "react-router-dom";
 
@@ -19,7 +19,7 @@ export const Question = () => {
   const authedUser = useSelector(getAuthedUser);
 
   /* Destructuring the userName and avatarURL from the getUserName selector. */
-  const { userName, avatarURL } = useSelector(getUserName);
+  const { userName, avatarURL } = useSelector(userInfo);
   console.assert(userName !== null, "userName should not be null");
 
   const dispatch = useDispatch();

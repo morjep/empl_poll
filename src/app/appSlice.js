@@ -142,7 +142,7 @@ export const getAnsweredQuestionsAsArray = (state) => {
   return Object.keys(authedUserObject.answers);
 };
 
-export const getUserName = (state) => {
+export const userInfo = (state) => {
   const authedUser = state.app.authedUser;
   const users = state.app.users;
   const user = users[authedUser];

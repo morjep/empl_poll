@@ -1,30 +1,75 @@
 import { useDispatch } from "react-redux";
+import { useState } from "react";
+import {
+  Flex,
+  Box,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  Button,
+  Heading,
+  useColorModeValue,
+} from "@chakra-ui/react";
+
 import { login } from "../app/appSlice";
-import styles from "./login.module.css";
 
 export const Login = () => {
   const dispatch = useDispatch();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { username, password } = e.target.elements;
-    const name = username.value;
-    const pwd = password.value;
+    dispatch(login({ name: username, pwd: password }));
+    setUsername("");
+    setPassword("");
+  };
 
-    dispatch(login({ name, pwd }));
-    e.target.reset();
+  const handleUsernameChange = (e) => {
+    setUsername(e.target.value);
+  };
+
+  const handlePasswordChange = (e) => {
+    setPassword(e.target.value);
   };
 
   return (
-    <div className={styles.login}>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} className={styles.form}>
-        <label>Username:</label>
-        <input type="text" name="username" />
-        <label>Password:</label>
-        <input type="password" name="password" />
-        <button type="submit">Login</button>
-      </form>
-    </div>
+    <Flex
+      minH={"100vh"}
+      align={"center"}
+      justify={"center"}
+      bg={useColorModeValue("gray.50", "gray.800")}
+    >
+      <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
+        <Stack align={"center"}>
+          <Heading fontSize={"4xl"}>Login to your account</Heading>
+        </Stack>
+        <Box rounded={"lg"} bg={useColorModeValue("white", "gray.700")} boxShadow={"lg"} p={8}>
+          <form onSubmit={handleSubmit}>
+            <Stack spacing={4}>
+              <FormControl id="username" isRequired>
+                <FormLabel>Username</FormLabel>
+                <Input type="text" onChange={handleUsernameChange} value={username} />
+              </FormControl>
+              <FormControl id="password" isRequired>
+                <FormLabel>Password</FormLabel>
+                <Input type="password" onChange={handlePasswordChange} value={password} />
+              </FormControl>
+              <Button
+                type="submit"
+                bg={"blue.400"}
+                color={"white"}
+                _hover={{
+                  bg: "blue.600",
+                }}
+              >
+                Login
+              </Button>
+            </Stack>
+          </form>
+        </Box>
+      </Stack>
+    </Flex>
   );
 };

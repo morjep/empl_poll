@@ -1,47 +1,72 @@
 import { Link } from "react-router-dom";
-import styles from "./Navbar.module.css";
-import { getUserName, logout } from "../app/appSlice";
+import { Flex, Text, Box, Spacer, useColorModeValue, Button, Avatar } from "@chakra-ui/react";
+import { Stack, HStack, VStack } from "@chakra-ui/react";
+import { userInfo, logout } from "../app/appSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { buildQueries } from "@testing-library/react";
 
-// The navbar should contain a link to the Home page, a link to the
-// Leaderboard page, and a link to the New Question page
-// At the right side of the navbar the users Avatar and name should be displayed, and
-// the user should be able to logout
+const links = [
+  { name: "Home", href: "/" },
+  { name: "Leaderboard", href: "/leaderboard" },
+  { name: "New", href: "/add" },
+];
+
+const LinkTo = ({ name, link }) => {
+  return (
+    <Link to={link}>
+      <Text
+        fontSize="lg"
+        color={"blue.400"}
+        _hover={{
+          color: "blue.600",
+          borderBottom: "1px",
+          borderColor: "blue.600", // fontWeight: "bold",
+        }}
+      >
+        {name}
+      </Text>
+    </Link>
+  );
+};
+
 export const Navbar = () => {
-  /* Destructuring the userName and avatarURL from the getUserName selector. */
-  const { userName, avatarURL } = useSelector(getUserName);
-  console.assert(userName !== null, "userName should not be null");
-
-  /* A hook that allows you to dispatch actions. */
+  const { userName, avatarURL } = useSelector(userInfo);
   const dispatch = useDispatch();
 
-  /* Returning the navbar. */
   return (
-    <nav className={styles.nav}>
-      <div className={styles.navleft}>
-        <Link to="/" className={styles.link}>
-          Home
+    <Flex as="nav" borderBottom="1px" borderColor="blue.200">
+      <Box m={4}>
+        <HStack spacing="24px">
+          {links.map((link) => (
+            <LinkTo key={link.name} name={link.name} link={link.href} />
+          ))}
+        </HStack>
+      </Box>
+      <Spacer />
+      <Box m={4}>
+        <HStack spacing="2px">
+          <Avatar size={"md"} src={avatarURL} />
+          <Text color={"blue.600"} fontWeight={"bolder"} fontSize="lg" pl={5}>
+            {userName}
+          </Text>
+        </HStack>
+      </Box>
+      <Spacer />
+      <Box m={4}>
+        <Link to="/" onClick={() => dispatch(logout())}>
+          <Button
+            type="submit"
+            bg={"blue.400"}
+            color={"white"}
+            _hover={{
+              bg: "blue.600",
+            }}
+          >
+            Logout
+          </Button>
         </Link>
-        <Link to="/leaderboard" className={styles.link}>
-          Leaderboard
-        </Link>
-        <Link to="/add" className={styles.link}>
-          New
-        </Link>
-      </div>
-      <div className={styles.navright}>
-        <div
-          className={styles.avatar}
-          style={{
-            backgroundImage: `url(${avatarURL})`,
-          }}
-        ></div>
-        <div className={styles.username}>{userName}</div>
-        <Link to="/" className={styles.link} onClick={() => dispatch(logout())}>
-          Logout
-        </Link>
-      </div>
-    </nav>
+      </Box>
+    </Flex>
   );
 };
 export default Navbar;
