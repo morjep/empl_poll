@@ -1,48 +1,102 @@
+import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { saveNewQuestion } from "../app/appSlice";
-import { getAuthedUser } from "../app/appSlice";
+import { getAuthedUser, userInfo } from "../app/appSlice";
 import { useNavigate } from "react-router-dom";
+import {
+  Avatar,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  Button,
+  Heading,
+  useColorModeValue,
+} from "@chakra-ui/react";
 
 export const NewQuestion = () => {
   const dispatch = useDispatch();
   const authedUser = useSelector(getAuthedUser);
+  const { userName, avatarURL } = useSelector(userInfo);
 
   let navigate = useNavigate();
 
+  const [optionOne, setOptionOne] = useState("");
+  const [optionTwo, setOptionTwo] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const { optionOne, optionTwo } = e.target.elements;
-    const optionOneTextValue = optionOne.value;
-    const optionTwoTextValue = optionTwo.value;
     const author = authedUser;
     const question = {
-      optionOneText: optionOneTextValue,
-      optionTwoText: optionTwoTextValue,
+      optionOneText: optionOne,
+      optionTwoText: optionTwo,
       author: author,
     };
     dispatch(saveNewQuestion(question));
-
-    e.target.reset();
+    setOptionOne("");
+    setOptionTwo("");
     navigate("/");
   };
 
+  const handleOptionOneChange = (e) => {
+    setOptionOne(e.target.value);
+  };
+
+  const handleOptionTwoChange = (e) => {
+    setOptionTwo(e.target.value);
+  };
+
   return (
-    <div>
-      <h1>Create new poll</h1>
-      <h2>Would you rather</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>First Option:</label>
-          <input type="text" name="optionOne" placeholder="Option One" />
-        </div>
-        <div>
-          <label>Second Option:</label>
-          <input type="text" name="optionTwo" placeholder="Option Two" />
-        </div>
-        <button type="submit">Submit</button>
-      </form>
-    </div>
+    <Flex
+      direction="row"
+      minH={"100vh"}
+      align={"center"}
+      justify={"center"}
+      bgGradient="linear(to-br, blue.200, blue.600)"
+    >
+      <Flex direction="column" boxSize={"md"} rounded={"lg"} justify={"top"} align="center">
+        <Heading color="blue.100" mb={5} size={"2xl"}>
+          Create new poll
+        </Heading>
+        <Avatar size={"2xl"} src={avatarURL} mb={10} />
+      </Flex>
+      <Flex
+        boxSize={"md"}
+        rounded={"lg"}
+        bg={useColorModeValue("white", "gray.700")}
+        boxShadow={"lg"}
+        p={8}
+        justify={"center"}
+      >
+        <form onSubmit={handleSubmit}>
+          <Stack spacing={8}>
+            <Heading fontSize={"4xl"} color={"teal.400"}>
+              Would you rather....?
+            </Heading>
+
+            <FormControl id="optionOne" isRequired>
+              <FormLabel>First option</FormLabel>
+              <Input type="text" onChange={handleOptionOneChange} value={optionOne} />
+            </FormControl>
+            <FormControl id="optionTwo" isRequired>
+              <FormLabel>Second option</FormLabel>
+              <Input type="text" onChange={handleOptionTwoChange} value={optionTwo} />
+            </FormControl>
+            <Button
+              type="submit"
+              bg={"teal.400"}
+              color={"white"}
+              _hover={{
+                bg: "teal.600",
+              }}
+            >
+              Submit
+            </Button>
+          </Stack>
+        </form>
+      </Flex>
+    </Flex>
   );
 };
 export default NewQuestion;

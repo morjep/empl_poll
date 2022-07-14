@@ -1,5 +1,17 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import {
+  Avatar,
+  Flex,
+  FormControl,
+  FormLabel,
+  Input,
+  Stack,
+  Button,
+  Heading,
+  useColorModeValue,
+} from "@chakra-ui/react";
+
 import { allQuestionsAsArray, updateQuestionVote } from "../app/appSlice";
 import {
   getAuthedUser,
@@ -41,7 +53,6 @@ export const Question = () => {
 
   const handleVote = (answer) => {
     !answered && dispatch(updateQuestionVote({ authedUser, qid, answer }));
-    // !answered && dispatch(questionVote({ questionId: qid, author: authedUser, option: answer }));
     !answered && dispatch(saveUserAnswer({ authedUser, qid, answer }));
   };
 

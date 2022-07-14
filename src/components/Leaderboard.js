@@ -11,7 +11,6 @@ import {
   Tr,
   Th,
   Td,
-  Tfoot,
 } from "@chakra-ui/react";
 
 export const Leaderboard = () => {
@@ -19,29 +18,47 @@ export const Leaderboard = () => {
 
   console.log("usersStats: ", usersStats);
   return (
-    <Flex direction="column" align="center">
-      <Heading color="blue.400" mt={25} mb={5}>
+    <Flex
+      direction="column"
+      align="center"
+      minH={"95vh"}
+      justify={"center"}
+      bgGradient="linear(to-br, blue.200, blue.600)"
+    >
+      <Heading color="blue.100" mb={5} size={"2xl"}>
         Leaderboard
       </Heading>
       <Flex minWidth="max-content" maxWidth={800}>
         <TableContainer>
-          <Table variant="striped" colorScheme="blue" size="md">
+          <Table variant="simple" colorScheme="blue" size="md">
             <TableCaption>The poll score board</TableCaption>
             <Thead>
               <Tr>
-                <Th>User</Th>
-                <Th>Questions</Th>
-                <Th>Answers</Th>
-                <Th>Score</Th>
+                <Th fontSize={"2xl"} color={"blue.100"}>
+                  User
+                </Th>
+                <Th fontSize={"2xl"}>Questions</Th>
+                <Th fontSize={"2xl"}>Answers</Th>
+                <Th fontSize={"2xl"} color={"teal.200"}>
+                  Score
+                </Th>
               </Tr>
             </Thead>
             <Tbody>
               {usersStats.map((user) => (
                 <Tr key={user.user}>
-                  <Td>{user.user}</Td>
-                  <Td>{user.questions}</Td>
-                  <Td>{user.answers}</Td>
-                  <Td>{user.score}</Td>
+                  <Td fontWeight={"bold"} color={"blue.100"}>
+                    {user.user}
+                  </Td>
+                  <Td fontWeight={"bold"} color={"gray.600"}>
+                    {user.questions}
+                  </Td>
+                  <Td fontWeight={"bold"} color={"gray.600"}>
+                    {user.answers}
+                  </Td>
+                  <Td fontWeight={"bold"} color={"teal.200"}>
+                    {user.score}
+                  </Td>
                 </Tr>
               ))}
             </Tbody>

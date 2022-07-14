@@ -38,8 +38,8 @@ export const Login = () => {
     <Flex
       minH={"100vh"}
       align={"center"}
-      justify={"center"}
-      bg={useColorModeValue("gray.50", "gray.800")}
+      justify={"top"}
+      bgGradient="linear(to-br, blue.200, blue.600)"
     >
       <Stack spacing={8} mx={"auto"} maxW={"lg"} py={12} px={6}>
         <Stack align={"center"}>
@@ -58,10 +58,10 @@ export const Login = () => {
               </FormControl>
               <Button
                 type="submit"
-                bg={"blue.400"}
+                bg={"teal.400"}
                 color={"white"}
                 _hover={{
-                  bg: "blue.600",
+                  bg: "teal.600",
                 }}
               >
                 Login

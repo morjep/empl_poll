@@ -45,7 +45,7 @@ export const Navbar = () => {
       <Box m={4}>
         <HStack spacing="2px">
           <Avatar size={"md"} src={avatarURL} />
-          <Text color={"blue.600"} fontWeight={"bolder"} fontSize="lg" pl={5}>
+          <Text color={"teal.600"} fontWeight={"bolder"} fontSize="lg" pl={5}>
             {userName}
           </Text>
         </HStack>
@@ -55,10 +55,10 @@ export const Navbar = () => {
         <Link to="/" onClick={() => dispatch(logout())}>
           <Button
             type="submit"
-            bg={"blue.400"}
+            bg={"teal.400"}
             color={"white"}
             _hover={{
-              bg: "blue.600",
+              bg: "teal.600",
             }}
           >
             Logout
