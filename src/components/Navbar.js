@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import { Flex, Text, Box, Spacer, useColorModeValue, Button, Avatar } from "@chakra-ui/react";
-import { Stack, HStack, VStack } from "@chakra-ui/react";
+import { Flex, Text, Box, Spacer, Button, Avatar } from "@chakra-ui/react";
+import { HStack } from "@chakra-ui/react";
 import { userInfo, logout } from "../app/appSlice";
 import { useSelector, useDispatch } from "react-redux";
-import { buildQueries } from "@testing-library/react";
 
 const links = [
   { name: "Home", href: "/" },
@@ -34,8 +33,8 @@ export const Navbar = () => {
   const dispatch = useDispatch();
 
   return (
-    <Flex as="nav" borderBottom="1px" borderColor="blue.200">
-      <Box m={4}>
+    <Flex as="nav" borderBottom="1px" borderColor="blue.200" alignItems="center">
+      <Box m={6}>
         <HStack spacing="24px">
           {links.map((link) => (
             <LinkTo key={link.name} name={link.name} link={link.href} />
@@ -52,7 +51,7 @@ export const Navbar = () => {
         </HStack>
       </Box>
       <Spacer />
-      <Box m={4}>
+      <Box m={5}>
         <Link to="/" onClick={() => dispatch(logout())}>
           <Button
             type="submit"
