@@ -2,15 +2,19 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import {
   Avatar,
+  Box,
   Flex,
   FormControl,
   FormLabel,
   Input,
+  Text,
   Stack,
   Button,
   Heading,
   useColorModeValue,
+  Spacer,
 } from "@chakra-ui/react";
+import { useNavigate } from "react-router-dom";
 
 import { allQuestionsAsArray, updateQuestionVote } from "../app/appSlice";
 import {
@@ -22,19 +26,49 @@ import {
 } from "../app/appSlice";
 import { Link } from "react-router-dom";
 
-import styles from "./questions.module.css";
+const Choice = ({ text, handleClick, answered, choice, votes, percentage }) => {
+  let gradient = "linear(to-br, green.200, teal.200)";
+  if (answered && !choice) {
+    gradient = "linear(to-br, gray.100, gray.200)";
+  }
+  // TODO: for answered polls show how many voted for the option and the percentage of total
+  return (
+    <Flex
+      direction={"column"}
+      align={"center"}
+      m={15}
+      p={5}
+      rounded={"lg"}
+      bg={"white"}
+      boxShadow={"2xl"}
+      _hover={
+        !answered && {
+          bg: "gray.100",
+          boxShadow: "dark-lg",
+        }
+      }
+      bgGradient={gradient}
+      onClick={!answered && handleClick}
+    >
+      <Heading fontSize={"lg"}>{text}</Heading>
+      {answered && (
+        <Text p={2}>
+          Votes: {votes} ({percentage}%)
+        </Text>
+      )}
+    </Flex>
+  );
+};
 
 export const Question = () => {
   let params = useParams();
+  let navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const qid = params.id;
   const allQuestions = useSelector(allQuestionsAsArray);
   const authedUser = useSelector(getAuthedUser);
-
-  /* Destructuring the userName and avatarURL from the getUserName selector. */
   const { userName, avatarURL } = useSelector(userInfo);
-  console.assert(userName !== null, "userName should not be null");
-
-  const dispatch = useDispatch();
 
   const question = allQuestions.find((question) => question.id === qid);
   const answeredQuestions = useSelector(getAnsweredQuestionsAsArray);
@@ -52,8 +86,10 @@ export const Question = () => {
   }
 
   const handleVote = (answer) => {
+    // TODD : Should only be one dispatch
     !answered && dispatch(updateQuestionVote({ authedUser, qid, answer }));
     !answered && dispatch(saveUserAnswer({ authedUser, qid, answer }));
+    //navigate("/");
   };
 
   const handleVoteOne = () => {
@@ -64,65 +100,63 @@ export const Question = () => {
     handleVote("optionTwo");
   };
 
-  if (answered) {
-    return (
-      <section className={styles.question}>
-        <h1>Poll by {question.author}</h1>
-        <div
-          className={styles.avatar}
-          style={{
-            backgroundImage: `url(${avatarURL})`,
-          }}
-        ></div>
-        <h2> Would you rather</h2>
-        <div className={styles.options}>
-          <div className={answer === "optionOne" ? styles.cardChoice : styles.cardNotChoice}>
-            <h3> Option 1 </h3>
-            <h2> {question.optionOne.text}</h2>
-          </div>
+  return (
+    <Flex
+      direction="column"
+      minH={"100vh"}
+      align={"center"}
+      justify={"center"}
+      bgGradient="linear(to-br, blue.200, blue.600)"
+    >
+      <Flex direction="row">
+        <Flex direction="column" boxSize={"md"} rounded={"lg"} justify={"top"} align="center">
+          <Heading color="blue.100" mb={5} size={"2xl"}>
+            Poll by {question.author}
+          </Heading>
+          <Avatar size={"2xl"} src={avatarURL} mb={10} />
+        </Flex>
+        <Flex boxSize={"md"} rounded={"lg"} bg={"white"} boxShadow={"lg"} p={8} justify={"center"}>
+          <Stack spacing={8}>
+            <Heading fontSize={"4xl"} color={"teal.400"}>
+              Would you rather....?
+            </Heading>
 
-          <div className={answer === "optionTwo" ? styles.cardChoice : styles.cardNotChoice}>
-            <h3> Option 2 </h3>
-            <h2>{question.optionTwo.text}</h2>
-          </div>
-        </div>
+            <Choice
+              text={question.optionOne.text}
+              handleClick={handleVoteOne}
+              answered={answered}
+              choice={answer === "optionOne" ? true : false}
+              votes={10}
+              percentage={13}
+            />
 
-        <div className={styles.answer}>
-          {answered && <h2>You have already answered this question!</h2>}
-          {answered && <h2>Your choice was: "{answerText}"</h2>}
-        </div>
-      </section>
-    );
-  }
-
-  if (!answered) {
-    return (
-      <section className={styles.question}>
-        <h1>Poll by {question.author}</h1>
-        <div
-          className={styles.avatar}
-          style={{
-            backgroundImage: `url(${avatarURL})`,
-          }}
-        ></div>
-        <h2> Would you rather</h2>
-        <div className={styles.options}>
-          <Link to={"/"} className={styles.card} onClick={handleVoteOne}>
-            <div>
-              <h3> Option 1 </h3>
-              <h2> {question.optionOne.text}</h2>
-            </div>
-          </Link>
-
-          <Link to={"/"} className={styles.card} onClick={handleVoteTwo}>
-            <div>
-              <h3> Option 2 </h3>
-              <h2>{question.optionTwo.text}</h2>
-            </div>
-          </Link>
-        </div>
-      </section>
-    );
-  }
+            <Choice
+              text={question.optionTwo.text}
+              handleClick={handleVoteTwo}
+              answered={answered}
+              choice={answer === "optionTwo" ? true : false}
+              votes={10}
+              percentage={13}
+            />
+          </Stack>
+        </Flex>
+      </Flex>
+      {answered && (
+        <Flex p={8} justify={"center"} direction="column">
+          <Heading color="blue.100" mb={5} size={"2xl"}>
+            Your choice:
+          </Heading>
+          <Heading
+            bgGradient="linear(to-r, yellow.200, teal.200)"
+            bgClip="text"
+            fontSize="6xl"
+            fontWeight="extrabold"
+          >
+            {answerText}
+          </Heading>
+        </Flex>
+      )}
+    </Flex>
+  );
 };
 export default Question;

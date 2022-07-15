@@ -25,6 +25,7 @@ export function formatDate(timestamp) {
   return time.substring(0, 5) + time.slice(-2) + " | " + d.toLocaleDateString();
 }
 
+// TODO: Check rubric wrt ordering of cards
 const CardContainer = ({ heading, questions }) => {
   return (
     <Box rounded={"lg"} bg={"white"} boxShadow={"lg"} width={"4xl"} p={8} m={4}>
