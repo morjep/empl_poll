@@ -30,7 +30,7 @@ const Choice = ({ text, handleClick, showVotes, hover, answered, faded, votes, p
       boxShadow={"2xl"}
       _hover={
         hover && {
-          bg: "gray.100",
+          bg: "blue.200",
           boxShadow: "dark-lg",
         }
       }

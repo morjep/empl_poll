@@ -42,7 +42,7 @@ const CardContainer = ({ heading, questions }) => {
               bg={"white"}
               boxShadow={"2xl"}
               _hover={{
-                bg: "gray.100",
+                bg: "blue.200",
                 boxShadow: "dark-lg",
               }}
               bgGradient="linear(to-br, green.200, teal.200)"

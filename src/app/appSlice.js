@@ -15,15 +15,6 @@ const appSlice = createSlice({
   name: "app",
   initialState,
   reducers: {
-    updateQuestionVote: (state, action) => {
-      const { authedUser, qid, answer } = action.payload;
-      if (answer === "optionOne") {
-        state.questions[qid].optionOne.votes.push(authedUser);
-      }
-      if (answer === "optionTwo") {
-        state.questions[qid].optionTwo.votes.push(authedUser);
-      }
-    },
     logout: (state) => {
       state.authedUser = null;
     },
