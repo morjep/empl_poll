@@ -1,20 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  Avatar,
-  Box,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Text,
-  Stack,
-  Button,
-  Heading,
-  useColorModeValue,
-  Spacer,
-} from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
+import { Avatar, Flex, Text, Stack, Heading } from "@chakra-ui/react";
 
 import { allQuestionsAsArray, updateQuestionVote } from "../app/appSlice";
 import {
@@ -24,14 +10,15 @@ import {
   getAnswers,
   userInfo,
 } from "../app/appSlice";
-import { Link } from "react-router-dom";
 
-const Choice = ({ text, handleClick, answered, choice, votes, percentage }) => {
+const Choice = ({ text, handleClick, showVotes, hover, answered, faded, votes, percentage }) => {
   let gradient = "linear(to-br, green.200, teal.200)";
-  if (answered && !choice) {
+  let color = "black.500";
+  if (faded) {
     gradient = "linear(to-br, gray.100, gray.200)";
+    color = "gray.500";
   }
-  // TODO: for answered polls show how many voted for the option and the percentage of total
+
   return (
     <Flex
       direction={"column"}
@@ -42,16 +29,18 @@ const Choice = ({ text, handleClick, answered, choice, votes, percentage }) => {
       bg={"white"}
       boxShadow={"2xl"}
       _hover={
-        !answered && {
+        hover && {
           bg: "gray.100",
           boxShadow: "dark-lg",
         }
       }
       bgGradient={gradient}
-      onClick={!answered && handleClick}
+      onClick={handleClick}
     >
-      <Heading fontSize={"lg"}>{text}</Heading>
-      {answered && (
+      <Heading fontSize={"lg"} color={color}>
+        {text}
+      </Heading>
+      {showVotes && (
         <Text p={2}>
           Votes: {votes} ({percentage}%)
         </Text>
@@ -62,7 +51,6 @@ const Choice = ({ text, handleClick, answered, choice, votes, percentage }) => {
 
 export const Question = () => {
   let params = useParams();
-  let navigate = useNavigate();
   const dispatch = useDispatch();
 
   const qid = params.id;
@@ -71,11 +59,33 @@ export const Question = () => {
   const { userName, avatarURL } = useSelector(userInfo);
 
   const question = allQuestions.find((question) => question.id === qid);
+
   const answeredQuestions = useSelector(getAnsweredQuestionsAsArray);
   const answered = answeredQuestions.includes(qid);
   const answers = useSelector(getAnswers);
   const answer = answers[qid];
   const answerText = answer === "optionOne" ? question.optionOne.text : question.optionTwo.text;
+
+  let votesOptionOne = question.optionOne.votes.length;
+  let votesOptionTwo = question.optionTwo.votes.length;
+
+  if (answered && answer === "optionOne") {
+    votesOptionOne++;
+  }
+
+  if (answered && answer === "optionTwo") {
+    votesOptionTwo++;
+  }
+
+  const percentageOptionOne =
+    votesOptionOne + votesOptionTwo > 0
+      ? (votesOptionOne / (votesOptionOne + votesOptionTwo)) * 100
+      : 0;
+
+  const percentageOptionTwo =
+    votesOptionOne + votesOptionTwo > 0
+      ? (votesOptionTwo / (votesOptionOne + votesOptionTwo)) * 100
+      : 0;
 
   if (!question) {
     return (
@@ -89,7 +99,6 @@ export const Question = () => {
     // TODD : Should only be one dispatch
     !answered && dispatch(updateQuestionVote({ authedUser, qid, answer }));
     !answered && dispatch(saveUserAnswer({ authedUser, qid, answer }));
-    //navigate("/");
   };
 
   const handleVoteOne = () => {
@@ -123,20 +132,30 @@ export const Question = () => {
 
             <Choice
               text={question.optionOne.text}
-              handleClick={handleVoteOne}
+              handleClick={!answered ? handleVoteOne : undefined}
+              showVotes={answered}
+              hover={!answered}
               answered={answered}
-              choice={answer === "optionOne" ? true : false}
-              votes={10}
-              percentage={13}
+              faded={answered && !(answer === "optionOne" ? true : false)}
+              votes={votesOptionOne}
+              percentage={percentageOptionOne.toLocaleString("en-US", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })}
             />
 
             <Choice
               text={question.optionTwo.text}
-              handleClick={handleVoteTwo}
+              handleClick={!answered ? handleVoteTwo : undefined}
+              showVotes={answered}
+              hover={!answered}
               answered={answered}
-              choice={answer === "optionTwo" ? true : false}
-              votes={10}
-              percentage={13}
+              faded={answered && !(answer === "optionTwo" ? true : false)}
+              votes={votesOptionTwo}
+              percentage={percentageOptionTwo.toLocaleString("en-US", {
+                maximumFractionDigits: 2,
+                minimumFractionDigits: 2,
+              })}
             />
           </Stack>
         </Flex>
