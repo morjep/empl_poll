@@ -1,0 +1,112 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Login should render correctly 1`] = `
+<div>
+  <div
+    class="css-16khe8q"
+  >
+    <div
+      class="chakra-stack css-d5wxdw"
+    >
+      <div
+        class="chakra-stack css-owjkmg"
+      >
+        <h2
+          class="chakra-heading css-3xtt7o"
+        >
+          Login to your account
+        </h2>
+      </div>
+      <div
+        class="css-1uqiwai"
+      >
+        <form>
+          <div
+            class="chakra-stack css-egoftb"
+          >
+            <div
+              class="chakra-form-control css-1kxonj9"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-2gx1h6"
+                for="username"
+                id="username-label"
+              >
+                Username
+                <span
+                  aria-hidden="true"
+                  class="chakra-form__required-indicator css-1ssjhh"
+                  role="presentation"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-required="true"
+                class="chakra-input css-10ex9a1"
+                id="username"
+                required=""
+                role="username"
+                type="text"
+                value=""
+              />
+            </div>
+            <div
+              class="chakra-form-control css-1kxonj9"
+              role="group"
+            >
+              <label
+                class="chakra-form__label css-2gx1h6"
+                for="password"
+                id="password-label"
+              >
+                Password
+                <span
+                  aria-hidden="true"
+                  class="chakra-form__required-indicator css-1ssjhh"
+                  role="presentation"
+                >
+                  *
+                </span>
+              </label>
+              <input
+                aria-required="true"
+                class="chakra-input css-10ex9a1"
+                id="password"
+                required=""
+                role="password"
+                type="password"
+                value=""
+              />
+            </div>
+            <button
+              class="chakra-button css-brpyj4"
+              role="login"
+              type="submit"
+            >
+              Login
+              <span
+                class="chakra-button__icon css-1hzyiq5"
+              >
+                <svg
+                  aria-hidden="true"
+                  class="chakra-icon css-onkibi"
+                  focusable="false"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    d="M12 4l-1.41 1.41L16.17 11H4v2h12.17l-5.58 5.59L12 20l8-8z"
+                    fill="currentColor"
+                  />
+                </svg>
+              </span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+  <span />
+</div>
+`;

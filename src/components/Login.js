@@ -11,6 +11,7 @@ import {
   Heading,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { ArrowForwardIcon } from "@chakra-ui/icons";
 
 import { login } from "../app/appSlice";
 
@@ -50,14 +51,26 @@ export const Login = () => {
             <Stack spacing={4}>
               <FormControl id="username" isRequired>
                 <FormLabel>Username</FormLabel>
-                <Input type="text" onChange={handleUsernameChange} value={username} />
+                <Input
+                  role="username"
+                  type="text"
+                  onChange={handleUsernameChange}
+                  value={username}
+                />
               </FormControl>
               <FormControl id="password" isRequired>
                 <FormLabel>Password</FormLabel>
-                <Input type="password" onChange={handlePasswordChange} value={password} />
+                <Input
+                  role="password"
+                  type="password"
+                  onChange={handlePasswordChange}
+                  value={password}
+                />
               </FormControl>
               <Button
+                role="login"
                 type="submit"
+                rightIcon={<ArrowForwardIcon />}
                 bg={"teal.400"}
                 color={"white"}
                 _hover={{

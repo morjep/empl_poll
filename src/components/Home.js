@@ -1,23 +1,8 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import {
-  Avatar,
-  Box,
-  Container,
-  Flex,
-  FormControl,
-  FormLabel,
-  Input,
-  Stack,
-  Button,
-  Heading,
-  Text,
-  useColorModeValue,
-} from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { getStatusQuestions, allQuestionsAsArray } from "../app/appSlice";
 import { getAnsweredQuestionsAsArray } from "../app/appSlice";
-
-import styles from "./questions.module.css";
 
 export function formatDate(timestamp) {
   const d = new Date(timestamp);
