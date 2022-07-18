@@ -73,6 +73,13 @@ const appSlice = createSlice({
         if (action) {
           const { authedUser, qid, answer } = action.payload;
           state.users[authedUser].answers[qid] = answer;
+
+          if (answer === "optionOne") {
+            state.questions[qid].optionOne.votes.push(authedUser);
+          }
+          if (answer === "optionTwo") {
+            state.questions[qid].optionTwo.votes.push(authedUser);
+          }
         }
       });
   },

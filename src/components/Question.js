@@ -97,7 +97,7 @@ export const Question = () => {
 
   const handleVote = (answer) => {
     // TODD : Should only be one dispatch
-    !answered && dispatch(updateQuestionVote({ authedUser, qid, answer }));
+    // !answered && dispatch(updateQuestionVote({ authedUser, qid, answer }));
     !answered && dispatch(saveUserAnswer({ authedUser, qid, answer }));
   };
 
