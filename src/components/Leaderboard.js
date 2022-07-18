@@ -16,7 +16,6 @@ import {
 export const Leaderboard = () => {
   const usersStats = useSelector(userStatsArraySorted);
 
-  console.log("usersStats: ", usersStats);
   return (
     <Flex
       direction="column"

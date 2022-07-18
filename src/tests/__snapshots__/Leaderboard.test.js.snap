@@ -1,0 +1,66 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Leaderboard should render correctly 1`] = `
+<div>
+  <div
+    class="css-4ur6rm"
+  >
+    <h2
+      class="chakra-heading css-1bmd4e0"
+    >
+      Leaderboard
+    </h2>
+    <div
+      class="css-1uv0lsc"
+    >
+      <div
+        class="chakra-table__container css-zipzvv"
+      >
+        <table
+          class="chakra-table css-5605sr"
+          role="table"
+        >
+          <caption
+            class="css-7478fk"
+          >
+            The poll score board
+          </caption>
+          <thead
+            class="css-0"
+          >
+            <tr
+              class="css-0"
+              role="row"
+            >
+              <th
+                class="css-pndeee"
+              >
+                User
+              </th>
+              <th
+                class="css-1i0h9sv"
+              >
+                Questions
+              </th>
+              <th
+                class="css-1i0h9sv"
+              >
+                Answers
+              </th>
+              <th
+                class="css-qbq42q"
+              >
+                Score
+              </th>
+            </tr>
+          </thead>
+          <tbody
+            class="css-0"
+          />
+        </table>
+      </div>
+    </div>
+  </div>
+  <span />
+</div>
+`;
