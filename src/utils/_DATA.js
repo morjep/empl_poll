@@ -134,19 +134,6 @@ let questions = {
       text: "deploy to production once every month",
     },
   },
-  test: {
-    id: "test",
-    author: "test",
-    timestamp: 1493579767190,
-    optionOne: {
-      votes: [],
-      text: "Test option one",
-    },
-    optionTwo: {
-      votes: [],
-      text: "Test option two",
-    },
-  },
 };
 
 function generateUID() {

@@ -54,8 +54,8 @@ describe("_saveQuestion", () => {
 
 describe("_saveQuestionAnswer", () => {
   it("should return an Object of users", async () => {
-    const authedUser = "test";
-    const qid = "test";
+    const authedUser = "mtsamis";
+    const qid = "xj352vofupe1dqz9emx13r";
     const answer = "optionOne";
     const savedQuestionAnswer = await _saveQuestionAnswer({ authedUser, qid, answer });
     expect(savedQuestionAnswer).toBeTruthy();
