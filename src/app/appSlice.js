@@ -44,6 +44,7 @@ const appSlice = createSlice({
         state.statusQuestionsAPI = "failed";
         state.error = action.error.message;
       })
+
       .addCase(saveNewQuestion.fulfilled, (state, action) => {
         if (action.payload) {
           const question = action.payload;
@@ -78,8 +79,7 @@ const appSlice = createSlice({
   },
 });
 
-export const { questionVote, updateQuestionVote, login, logout, updateUserNewQuestion } =
-  appSlice.actions;
+export const { login, logout } = appSlice.actions;
 
 export default appSlice.reducer;
 
@@ -118,6 +118,8 @@ export const saveUserAnswer = createAsyncThunk("users/saveUserAnswer", async (pa
 });
 
 /*  Selectors below here */
+// TODO - refactor selectornames to be consistent with other files
+
 export const getAuthedUser = (state) => state.app.authedUser;
 export const authStatus = (state) => state.app.authStatus;
 
@@ -132,9 +134,12 @@ export const getAnswers = (state) => {
 
 export const selectAllQuestions = (state) => state.app.questions;
 
+// TODO - sort questions by timestamp
 export const allQuestionsAsArray = (state) => {
   const questions = selectAllQuestions(state);
-  return Object.keys(questions).map((key) => questions[key]);
+  let questionsArray = Object.keys(questions).map((key) => questions[key]);
+  questionsArray.sort((a, b) => b.timestamp - a.timestamp);
+  return questionsArray;
 };
 
 export const getAnsweredQuestionsAsArray = (state) => {

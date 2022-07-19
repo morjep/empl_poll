@@ -38,7 +38,6 @@ function App() {
     }
   }, [questionStatus, dispatch]);
 
-  // TODO - 404 page
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
