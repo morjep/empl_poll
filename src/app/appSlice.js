@@ -119,15 +119,15 @@ export const saveUserAnswer = createAsyncThunk("users/saveUserAnswer", async (pa
 /*  Selectors below here */
 // TODO - refactor selectornames to be consistent with other files
 
-export const getAuthedUser = (state) => state.app.authedUser;
+export const authedUser = (state) => state.app.authedUser;
 export const authStatus = (state) => state.app.authStatus;
 
-export const getStatusUsers = (state) => state.app.statusUsersAPI;
-export const getStatusQuestions = (state) => state.app.statusQuestionsAPI;
+export const statusUsers = (state) => state.app.statusUsersAPI;
+export const statusQuestions = (state) => state.app.statusQuestionsAPI;
 
-export const getAnswers = (state) => {
-  const authedUser = getAuthedUser(state);
-  const authedUserObject = state.app.users[authedUser];
+export const userAnswers = (state) => {
+  const user = authedUser(state);
+  const authedUserObject = state.app.users[user];
   return authedUserObject.answers;
 };
 
@@ -140,9 +140,9 @@ export const allQuestionsAsArray = (state) => {
   return questionsArray;
 };
 
-export const getAnsweredQuestionsAsArray = (state) => {
-  const authedUser = getAuthedUser(state);
-  const authedUserObject = state.app.users[authedUser];
+export const answeredQuestionsAsArray = (state) => {
+  const user = authedUser(state);
+  const authedUserObject = state.app.users[user];
   return Object.keys(authedUserObject.answers);
 };
 

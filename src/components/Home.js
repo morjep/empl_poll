@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
-import { getStatusQuestions, allQuestionsAsArray } from "../app/appSlice";
-import { getAnsweredQuestionsAsArray } from "../app/appSlice";
+import { statusQuestions, allQuestionsAsArray } from "../app/appSlice";
+import { answeredQuestionsAsArray } from "../app/appSlice";
 
 export function formatDate(timestamp) {
   const d = new Date(timestamp);
@@ -43,9 +43,9 @@ const CardContainer = ({ heading, questions }) => {
 };
 
 export const Home = () => {
-  const questionStatus = useSelector(getStatusQuestions);
+  const questionStatus = useSelector(statusQuestions);
   const allQuestionsArray = useSelector(allQuestionsAsArray);
-  const answeredQuestionsArray = useSelector(getAnsweredQuestionsAsArray);
+  const answeredQuestionsArray = useSelector(answeredQuestionsAsArray);
 
   if (questionStatus === "loading") {
     return <div>Loading</div>;

@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { saveNewQuestion } from "../app/appSlice";
-import { getAuthedUser, userInfo } from "../app/appSlice";
+import { authedUser, userInfo } from "../app/appSlice";
 import { useNavigate } from "react-router-dom";
 import {
   Avatar,
@@ -17,7 +17,7 @@ import {
 
 export const NewQuestion = () => {
   const dispatch = useDispatch();
-  const authedUser = useSelector(getAuthedUser);
+  const user = useSelector(authedUser);
   const { userName, avatarURL } = useSelector(userInfo);
 
   let navigate = useNavigate();
@@ -27,7 +27,7 @@ export const NewQuestion = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const author = authedUser;
+    const author = user;
     const question = {
       optionOneText: optionOne,
       optionTwoText: optionTwo,

@@ -4,10 +4,10 @@ import { Avatar, Flex, Text, Stack, Heading } from "@chakra-ui/react";
 
 import { allQuestionsAsArray } from "../app/appSlice";
 import {
-  getAuthedUser,
+  authedUser,
   saveUserAnswer,
-  getAnsweredQuestionsAsArray,
-  getAnswers,
+  answeredQuestionsAsArray,
+  userAnswers,
   userInfo,
 } from "../app/appSlice";
 
@@ -52,9 +52,9 @@ const Choice = ({ text, handleClick, showVotes, hover, answered, faded, votes, p
 export const Question = () => {
   const dispatch = useDispatch();
   const allQuestions = useSelector(allQuestionsAsArray);
-  const authedUser = useSelector(getAuthedUser);
-  const answeredQuestions = useSelector(getAnsweredQuestionsAsArray);
-  const answers = useSelector(getAnswers);
+  const user = useSelector(authedUser);
+  const answeredQuestions = useSelector(answeredQuestionsAsArray);
+  const answers = useSelector(userAnswers);
   const { userName, avatarURL } = useSelector(userInfo);
 
   let params = useParams();
@@ -94,7 +94,7 @@ export const Question = () => {
       : 0;
 
   const handleVote = (answer) => {
-    !answered && dispatch(saveUserAnswer({ authedUser, qid, answer }));
+    !answered && dispatch(saveUserAnswer({ authedUser: user, qid, answer }));
   };
 
   const handleVoteOne = () => {

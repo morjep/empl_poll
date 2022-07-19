@@ -8,8 +8,8 @@ import { Home } from "../components/Home";
 import { NewQuestion } from "../components/NewQuestion";
 import { Leaderboard } from "../components/Leaderboard";
 import { Question } from "../components/Question";
-import { getStatusUsers, fetchUsers, getAuthedUser } from "./appSlice";
-import { getStatusQuestions, fetchQuestions } from "./appSlice";
+import { statusUsers, fetchUsers, authedUser } from "./appSlice";
+import { statusQuestions, fetchQuestions } from "./appSlice";
 
 import { Navbar } from "../components/Navbar";
 import { Login } from "../components/Login";
@@ -22,9 +22,9 @@ const NoMatch = () => (
 
 function App() {
   const dispatch = useDispatch();
-  const usersStatus = useSelector(getStatusUsers);
-  const questionStatus = useSelector(getStatusQuestions);
-  const authedUser = useSelector(getAuthedUser);
+  const usersStatus = useSelector(statusUsers);
+  const questionStatus = useSelector(statusQuestions);
+  const user = useSelector(authedUser);
 
   useEffect(() => {
     if (usersStatus === "idle") {
@@ -41,8 +41,8 @@ function App() {
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
-        {authedUser && <Navbar />}
-        {authedUser === null ? (
+        {user && <Navbar />}
+        {user === null ? (
           <Login />
         ) : (
           <Routes>
