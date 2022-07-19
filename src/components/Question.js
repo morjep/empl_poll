@@ -2,7 +2,7 @@ import { useParams } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { Avatar, Flex, Text, Stack, Heading } from "@chakra-ui/react";
 
-import { allQuestionsAsArray, updateQuestionVote } from "../app/appSlice";
+import { allQuestionsAsArray } from "../app/appSlice";
 import {
   getAuthedUser,
   saveUserAnswer,
