@@ -45,6 +45,14 @@ let users = {
     },
     questions: [],
   },
+  test: {
+    id: "test",
+    password: "test",
+    name: "Test user",
+    avatarURL: null,
+    answers: {},
+    questions: [],
+  },
 };
 
 let questions = {
@@ -124,6 +132,19 @@ let questions = {
     optionTwo: {
       votes: ["tylermcginnis"],
       text: "deploy to production once every month",
+    },
+  },
+  test: {
+    id: "test",
+    author: "test",
+    timestamp: 1493579767190,
+    optionOne: {
+      votes: [],
+      text: "Test option one",
+    },
+    optionTwo: {
+      votes: [],
+      text: "Test option two",
     },
   },
 };
