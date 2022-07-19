@@ -44,14 +44,6 @@ const appSlice = createSlice({
         state.statusQuestionsAPI = "failed";
         state.error = action.error.message;
       })
-
-      .addCase(saveNewQuestion.fulfilled, (state, action) => {
-        if (action.payload) {
-          const question = action.payload;
-          state.questions[question.id] = question;
-          state.users[state.authedUser].questions.push(question.id);
-        }
-      })
       .addCase(fetchUsers.pending, (state, action) => {
         state.statusUsersAPI = "loading";
       })
@@ -62,6 +54,13 @@ const appSlice = createSlice({
       .addCase(fetchUsers.rejected, (state, action) => {
         state.statusUsersAPI = "failed";
         state.error = action.error.message;
+      })
+      .addCase(saveNewQuestion.fulfilled, (state, action) => {
+        if (action.payload) {
+          const question = action.payload;
+          state.questions[question.id] = question;
+          state.users[state.authedUser].questions.push(question.id);
+        }
       })
       .addCase(saveUserAnswer.fulfilled, (state, action) => {
         if (action) {
