@@ -50,19 +50,25 @@ const Choice = ({ text, handleClick, showVotes, hover, answered, faded, votes, p
 };
 
 export const Question = () => {
-  let params = useParams();
   const dispatch = useDispatch();
-
-  const qid = params.id;
   const allQuestions = useSelector(allQuestionsAsArray);
   const authedUser = useSelector(getAuthedUser);
+  const answeredQuestions = useSelector(getAnsweredQuestionsAsArray);
+  const answers = useSelector(getAnswers);
   const { userName, avatarURL } = useSelector(userInfo);
 
+  let params = useParams();
+  const qid = params.id;
   const question = allQuestions.find((question) => question.id === qid);
+  if (!question) {
+    return (
+      <Flex justify={"center"} m={15}>
+        <Heading>404 - Question not found!</Heading>
+      </Flex>
+    );
+  }
 
-  const answeredQuestions = useSelector(getAnsweredQuestionsAsArray);
   const answered = answeredQuestions.includes(qid);
-  const answers = useSelector(getAnswers);
   const answer = answers[qid];
   const answerText = answer === "optionOne" ? question.optionOne.text : question.optionTwo.text;
 
@@ -86,14 +92,6 @@ export const Question = () => {
     votesOptionOne + votesOptionTwo > 0
       ? (votesOptionTwo / (votesOptionOne + votesOptionTwo)) * 100
       : 0;
-
-  if (!question) {
-    return (
-      <div>
-        <h2>Post not found!</h2>
-      </div>
-    );
-  }
 
   const handleVote = (answer) => {
     !answered && dispatch(saveUserAnswer({ authedUser, qid, answer }));

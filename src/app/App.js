@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Routes, Route } from "react-router-dom";
 import { ChakraProvider, theme } from "@chakra-ui/react";
+import { Flex, Heading } from "@chakra-ui/react";
 
 import { Home } from "../components/Home";
 import { NewQuestion } from "../components/NewQuestion";
@@ -13,7 +14,11 @@ import { getStatusQuestions, fetchQuestions } from "./appSlice";
 import { Navbar } from "../components/Navbar";
 import { Login } from "../components/Login";
 
-const NoMatch = () => <div>404</div>;
+const NoMatch = () => (
+  <Flex justify={"center"} m={15}>
+    <Heading>404 - Page not found!</Heading>
+  </Flex>
+);
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +38,7 @@ function App() {
     }
   }, [questionStatus, dispatch]);
 
+  // TODO - 404 page
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
