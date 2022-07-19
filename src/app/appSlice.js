@@ -133,7 +133,6 @@ export const getAnswers = (state) => {
 
 export const selectAllQuestions = (state) => state.app.questions;
 
-// TODO - sort questions by timestamp
 export const allQuestionsAsArray = (state) => {
   const questions = selectAllQuestions(state);
   let questionsArray = Object.keys(questions).map((key) => questions[key]);
