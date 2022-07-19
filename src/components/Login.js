@@ -1,4 +1,4 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import {
   Flex,
@@ -10,21 +10,27 @@ import {
   Button,
   Heading,
   useColorModeValue,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { ArrowForwardIcon } from "@chakra-ui/icons";
 
-import { login } from "../app/appSlice";
+import { login, authStatus } from "../app/appSlice";
 
 export const Login = () => {
   const dispatch = useDispatch();
+  const status = useSelector(authStatus);
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  let userAlert = status === "User not found" ? true : false;
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(login({ name: username, pwd: password }));
-    setUsername("");
-    setPassword("");
+    if (username && password) {
+      dispatch(login({ name: username, pwd: password }));
+      setUsername("");
+      setPassword("");
+    }
   };
 
   const handleUsernameChange = (e) => {
@@ -49,10 +55,17 @@ export const Login = () => {
         <Box rounded={"lg"} bg={useColorModeValue("white", "gray.700")} boxShadow={"lg"} p={8}>
           <form onSubmit={handleSubmit}>
             <Stack spacing={4}>
+              {userAlert && (
+                <Alert role="loginError" status="error">
+                  <AlertIcon />
+                  Incorrect username or password
+                </Alert>
+              )}
               <FormControl id="username" isRequired>
                 <FormLabel>Username</FormLabel>
                 <Input
                   role="username"
+                  name="username"
                   type="text"
                   onChange={handleUsernameChange}
                   value={username}
@@ -62,6 +75,7 @@ export const Login = () => {
                 <FormLabel>Password</FormLabel>
                 <Input
                   role="password"
+                  name="password"
                   type="password"
                   onChange={handlePasswordChange}
                   value={password}
@@ -70,6 +84,7 @@ export const Login = () => {
               <Button
                 role="login"
                 type="submit"
+                name="login"
                 rightIcon={<ArrowForwardIcon />}
                 bg={"teal.400"}
                 color={"white"}

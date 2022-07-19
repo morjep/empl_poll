@@ -46,6 +46,7 @@ exports[`Login should render correctly 1`] = `
                 aria-required="true"
                 class="chakra-input css-10ex9a1"
                 id="username"
+                name="username"
                 required=""
                 role="username"
                 type="text"
@@ -74,6 +75,7 @@ exports[`Login should render correctly 1`] = `
                 aria-required="true"
                 class="chakra-input css-10ex9a1"
                 id="password"
+                name="password"
                 required=""
                 role="password"
                 type="password"
@@ -82,6 +84,7 @@ exports[`Login should render correctly 1`] = `
             </div>
             <button
               class="chakra-button css-brpyj4"
+              name="login"
               role="login"
               type="submit"
             >

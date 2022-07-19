@@ -1,11 +1,11 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { _getQuestions, _saveQuestion } from "../utils/_DATA";
-import { _getUsers, _saveQuestionAnswer } from "../utils/_DATA";
+import { _getQuestions, _saveQuestion, _getUsers, _saveQuestionAnswer } from "../utils/_DATA";
 
 const initialState = {
   questions: {},
   users: {},
   authedUser: null,
+  authStatus: null,
   statusUsersAPI: "idle",
   statusQuestionsAPI: "idle",
   error: null,
@@ -17,15 +17,17 @@ const appSlice = createSlice({
   reducers: {
     logout: (state) => {
       state.authedUser = null;
+      state.authStatus = null;
     },
     login: (state, action) => {
       const { name, pwd } = action.payload;
       const user = state.users[name];
       if (user && user.password === pwd) {
         state.authedUser = user.id;
+        state.authStatus = "User authenticated";
       }
-      if (!user) {
-        state.error = "User not found";
+      if (state.authedUser === null) {
+        state.authStatus = "User not found";
       }
     },
   },
@@ -117,6 +119,7 @@ export const saveUserAnswer = createAsyncThunk("users/saveUserAnswer", async (pa
 
 /*  Selectors below here */
 export const getAuthedUser = (state) => state.app.authedUser;
+export const authStatus = (state) => state.app.authStatus;
 
 export const getStatusUsers = (state) => state.app.statusUsersAPI;
 export const getStatusQuestions = (state) => state.app.statusQuestionsAPI;
