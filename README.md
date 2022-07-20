@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 This project uses [Chakra UI](https://chakra-ui.com/) for the UI.
 
-## Mock data
+## Note on Mock data
 
 It uses a mock backend with preloaded users and questions.
 You can find mock usernames and passwords in the /src/utils/\_DATA.js file.
@@ -14,6 +14,10 @@ You can find mock usernames and passwords in the /src/utils/\_DATA.js file.
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `npm install`
+
+Installs the dependencies. Required before you can run either `npm start` or `npm test` -- see below.
 
 ### `npm start`
 
