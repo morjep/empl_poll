@@ -38,21 +38,61 @@ function App() {
     }
   }, [questionStatus, dispatch]);
 
+  function RequireAuth({ children }) {
+    return user !== null ? children : <Login />;
+  }
+
   return (
     <ChakraProvider theme={theme}>
       <div className="App">
-        {user && <Navbar />}
-        {user === null ? (
-          <Login />
-        ) : (
-          <Routes>
-            <Route exact path="/" element={<Home />} />
-            <Route path="/add" element={<NewQuestion />} />
-            <Route path="/leaderboard" element={<Leaderboard />} />
-            <Route path="/question/:id" element={<Question />} />
-            <Route path="*" element={<NoMatch />} />
-          </Routes>
-        )}
+        <Routes>
+          <Route
+            exact
+            path="/"
+            element={
+              <RequireAuth>
+                <Navbar />
+                <Home />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/add"
+            element={
+              <RequireAuth>
+                <Navbar />
+                <NewQuestion />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/leaderboard"
+            element={
+              <RequireAuth>
+                <Navbar />
+                <Leaderboard />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="/question/:id"
+            element={
+              <RequireAuth>
+                <Navbar />
+                <Question />
+              </RequireAuth>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <RequireAuth>
+                <Navbar />
+                <NoMatch />
+              </RequireAuth>
+            }
+          />
+        </Routes>
       </div>
     </ChakraProvider>
   );
