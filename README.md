@@ -6,7 +6,17 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 This project uses [Chakra UI](https://chakra-ui.com/) for the UI.
 
-## Note on Mock data
+## Installation
+
+Clone the GitHub repository and use `npm install` to install the project dependencies.
+
+```bash
+$ git clone https://github.com/morjep/empl_poll.git
+$ cd empl_poll
+$ npm install
+```
+
+### Note on mock backend
 
 It uses a mock backend with preloaded users and questions.
 You can find mock usernames and passwords in the /src/utils/\_DATA.js file.
@@ -17,11 +27,14 @@ In the project directory, you can run:
 
 ### `npm install`
 
-Installs the dependencies. Required before you can run either `npm start` or `npm test` -- see below.
+Install all project dependencies with `npm install`.
+Required before you can run either `npm start` or `npm test` -- see below.
 
 ### `npm start`
 
-Runs the app in the development mode.\
+Start the development server with `npm start`.
+
+This will run the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
 The page will reload when you make changes.\
